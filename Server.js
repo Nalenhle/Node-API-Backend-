@@ -10,9 +10,10 @@ const app = express()
 
 const PORT = process.env.PORT || 4000
 const MONGO_URL = process.env.MONGO_URL
+const FRONTEND = process.env.FRONTEND
 
 var corsOptions = {
-    origin: 'http://example.com',
+    origin: FRONTEND,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
@@ -36,12 +37,14 @@ app.get('/blog', (req, res) =>{
 
 app.use(errorMiddleware);
 
+
+
 mongoose.
 connect(MONGO_URL)
 .then(() => {
     console.log('connected to MongoDB')
     app.listen(PORT, ()=> {
-        console.log('Node API app is running on port ${PORT}')
+        console.log(`Node API app is running on port ${PORT}`)
     });
 }).catch((error) => {
     console.log(error)
