@@ -6,6 +6,7 @@ const errorMiddleware = require('./middleware/errorMiddleware')
 var cors = require('cors')
 
 
+
 const app = express()
 
 const PORT = process.env.PORT || 4000
@@ -18,14 +19,35 @@ var corsOptions = {
   }
 
 app.use(cors(corsOptions))
-app.use(express.json())
+app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
 
 
 //routes
+app.use('/api/products', productRoute);
 
-app.use('/api/products', productRoute)
+app.get('/api/resource', async (req, res, next) => {
+    try {
+      const product = await someAsyncFunction();
+      res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+
+app.post('/product',async(req,res) =>{
+  try {
+    const product = await Product.create(req.body)
+  res.status(200).jason(product);
+    
+  } catch (error) {
+      console.log(error.message);
+      res.status(500).json({message:error.message})
+  } 
+  
+})
 
 
 app.get('/', (req, res) =>{
@@ -36,7 +58,6 @@ app.get('/blog', (req, res) =>{
 })
 
 app.use(errorMiddleware);
-
 
 
 mongoose.

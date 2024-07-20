@@ -1,3 +1,4 @@
-NODE_ENV = production
+NODE_ENV = development
 MONGO_URL = 
 PORT = 4000
+FRONTEND =  http://localhost:5173
